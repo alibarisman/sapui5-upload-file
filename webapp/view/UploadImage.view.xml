@@ -1,0 +1,44 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.sap.UploadImage.controller.UploadImage"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:u="sap.ui.unified" displayBlock="true">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<Label text="Put your Documents here" width="100%" id="__label0"/>
+					<u:FileUploader 
+						id="fileUploader"
+						useMultipart="false"
+						name="myFileUpload"
+						uploadUrl="/sap/opu/odata/sap/ZUPLOAD_FILE_SRV/ZFILESet" 
+						width="400px" 
+						tooltip="Upload your file to the local server" 
+						uploadComplete="handleUploadComplete"/>
+					<Button text="Upload File" press="handleUploadPress"/>
+					<List
+						id="itemlist" 
+						headerText="Upload Files" 
+						class="sapUiResponsiveMargin" 
+						width="auto"
+						items="{ path : 'Data>/ZFILESet' }">
+						<items>
+							<ObjectListItem id="listItem" title="{Data>filename}">
+								<ObjectAttribute text="Download" active="true" press="download"/>
+							</ObjectListItem>
+						</items>
+					</List>
+					<UploadCollection
+						id="UploadCollection"
+						multiple="true"
+						sameFilenameAllowed="false"
+						uploadUrl="/sap/opu/odata/sap/ZUPLOAD_FILE_SRV/ZFILESet" 
+						instantUpload="false"
+						noDataDescription="Drop files or use the &quot;+&quot; button for pending upload"
+						change="onChange"
+						uploadComplete="onUploadComplete"
+						beforeUploadStarts="onBeforeUploadStarts" />
+					<Button id="Button" text="Upload Now" press="onStartUpload" />
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
